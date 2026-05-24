@@ -1,0 +1,1091 @@
+<!DOCTYPE html>
+<html lang="pa">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>ਜਸਰਾਜ ਖੇਤੀਬਾੜੀ ਸਟੋਰ</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Baloo+2:wght@500;600;700;800&display=swap" rel="stylesheet">
+<style>
+/* ═══════════════════════════════════════════
+   TOKENS
+═══════════════════════════════════════════ */
+:root{
+  /* Saffron / Kesri */
+  --s50:#fff8ed; --s100:#ffefd3; --s200:#ffd9a0;
+  --s300:#ffbc5c; --s400:#f59e0b; --s500:#e8870a;
+  --s600:#d06b00; --s700:#a85200; --s800:#7c3c00;
+
+  /* Forest Green */
+  --g50:#f0fdf4; --g100:#dcfce7; --g200:#bbf7d0;
+  --g400:#4ade80; --g500:#22c55e; --g600:#16a34a;
+  --g700:#15803d; --g800:#166534; --g900:#14532d;
+
+  /* Navy (footer/admin only) */
+  --n700:#0d1a45; --n800:#080f2e; --n900:#04091c;
+
+  /* Neutrals */
+  --ink:#111318; --ink2:#2d3142; --ink3:#6b7280;
+  --ink4:#9ca3af; --line:#e5e7eb; --surf:#f9fafb; --white:#fff;
+
+  /* Status */
+  --red:#ef4444; --red-lt:#fee2e2;
+  --blue-lt:#dbeafe; --blue:#1d4ed8;
+
+  --rad:12px; --rad2:18px; --rad3:24px;
+  --s1:0 1px 3px rgba(0,0,0,.07);
+  --s2:0 4px 14px rgba(0,0,0,.09);
+  --s3:0 10px 36px rgba(0,0,0,.11);
+  --s4:0 24px 70px rgba(0,0,0,.15),0 8px 22px rgba(0,0,0,.09);
+}
+
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth;-webkit-tap-highlight-color:transparent}
+body{
+  font-family:'Inter',sans-serif;
+  background:#fdf6ec;
+  background-image:
+    radial-gradient(ellipse 80% 40% at 50% 0%, rgba(245,158,11,.12) 0%,transparent 60%),
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='60' height='60'%3E%3Cpath fill='%23d06b00' fill-opacity='.025' d='M30 55 Q20 40 22 25 Q25 15 30 10 Q35 15 38 25 Q40 40 30 55Z'/%3E%3C/svg%3E");
+  background-size:auto, 60px 60px;
+  color:var(--ink);min-height:100vh;
+  padding:14px 10px 60px;line-height:1.6;
+}
+
+/* ── KEYFRAMES ── */
+@keyframes popIn       {from{opacity:0;transform:scale(.88)}to{opacity:1;transform:scale(1)}}
+@keyframes fadeUp      {from{opacity:0;transform:translateY(28px)}to{opacity:1;transform:translateY(0)}}
+@keyframes fadeLeft    {from{opacity:0;transform:translateX(-28px)}to{opacity:1;transform:translateX(0)}}
+@keyframes fadeRight   {from{opacity:0;transform:translateX(28px)}to{opacity:1;transform:translateX(0)}}
+@keyframes fadeIn      {from{opacity:0}to{opacity:1}}
+@keyframes float       {0%,100%{transform:translateY(0) rotate(0deg)}35%{transform:translateY(-8px) rotate(3deg)}65%{transform:translateY(-5px) rotate(-2deg)}}
+@keyframes glowPulse   {0%,100%{box-shadow:0 0 0 0 rgba(245,158,11,.5),0 8px 24px rgba(208,107,0,.3)}50%{box-shadow:0 0 0 10px rgba(245,158,11,0),0 8px 24px rgba(208,107,0,.5)}}
+@keyframes ringGreen   {0%{box-shadow:0 0 0 0 rgba(34,197,94,.55)}70%{box-shadow:0 0 0 9px rgba(34,197,94,0)}100%{box-shadow:0 0 0 0 rgba(34,197,94,0)}}
+@keyframes shimmer     {0%{background-position:-600px 0}100%{background-position:600px 0}}
+@keyframes shake       {0%,100%{transform:translateX(0)}20%,60%{transform:translateX(-7px)}40%,80%{transform:translateX(7px)}}
+@keyframes slideDown   {from{opacity:0;transform:translateY(-16px)}to{opacity:1;transform:translateY(0)}}
+@keyframes badgeIn     {0%{transform:scale(0)}70%{transform:scale(1.28)}100%{transform:scale(1)}}
+@keyframes waveMove    {0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+@keyframes ripple      {to{transform:scale(4);opacity:0}}
+@keyframes cardPop     {0%{opacity:0;transform:translateY(20px) scale(.95)}60%{transform:translateY(-4px) scale(1.02)}100%{opacity:1;transform:translateY(0) scale(1)}}
+@keyframes bounce      {0%,100%{transform:translateY(0)}50%{transform:translateY(-5px)}}
+@keyframes gradShift   {0%,100%{background-position:0% 50%}50%{background-position:100% 50%}}
+
+/* ── SCROLL REVEAL CLASSES ── */
+.reveal{opacity:0;transform:translateY(26px);transition:opacity .55s ease,transform .55s ease;}
+.reveal.from-left{transform:translateX(-26px);}
+.reveal.from-right{transform:translateX(26px);}
+.reveal.visible{opacity:1;transform:none;}
+
+/* ── CARD SHELL ── */
+.page{
+  max-width:620px;margin:0 auto;
+  background:var(--white);
+  border-radius:var(--rad3);
+  box-shadow:var(--s4);overflow:hidden;
+  animation:popIn .45s ease both;
+}
+
+/* ══════════════════════════════════════════
+   HERO — Vivid Saffron Sunrise
+══════════════════════════════════════════ */
+.hero{
+  background:linear-gradient(160deg,#f59e0b 0%,#e8820a 45%,#d06b00 100%);
+  background-size:200% 200%;
+  animation:gradShift 6s ease infinite;
+  padding:32px 20px 0;text-align:center;
+  position:relative;overflow:hidden;
+}
+/* animated wave bottom */
+.hero-wave{
+  position:absolute;bottom:0;left:0;width:200%;height:38px;
+  overflow:hidden;pointer-events:none;
+}
+.hero-wave svg{
+  width:50%;height:100%;
+  fill:var(--white);
+  animation:waveMove 5s linear infinite;
+  display:inline-block;
+}
+/* glowing orb bg */
+.hero::before{
+  content:'';position:absolute;
+  width:220px;height:220px;border-radius:50%;
+  background:rgba(255,255,255,.1);
+  top:-60px;left:-60px;
+  pointer-events:none;
+}
+.hero::after{
+  content:'';position:absolute;
+  width:180px;height:180px;border-radius:50%;
+  background:rgba(255,255,255,.08);
+  bottom:20px;right:-50px;
+  pointer-events:none;
+}
+/* floating grain dots */
+.hero-dots{
+  position:absolute;inset:0;pointer-events:none;overflow:hidden;
+}
+.hero-dots span{
+  position:absolute;border-radius:50%;
+  background:rgba(255,255,255,.18);
+  animation:float ease-in-out infinite;
+}
+
+/* admin gear */
+.admin-dot{
+  position:absolute;top:12px;right:12px;z-index:5;
+  width:30px;height:30px;border-radius:50%;
+  background:rgba(0,0,0,.1);border:1px solid rgba(0,0,0,.12);
+  display:flex;align-items:center;justify-content:center;
+  cursor:pointer;user-select:none;transition:background .2s;
+}
+.admin-dot:hover{background:rgba(0,0,0,.2);}
+.admin-dot svg{width:14px;height:14px;fill:rgba(255,255,255,.7);}
+
+/* Khanda badge */
+.khanda-ring{
+  display:inline-flex;align-items:center;justify-content:center;
+  width:90px;height:90px;border-radius:50%;
+  background:linear-gradient(145deg,rgba(255,255,255,.3),rgba(255,255,255,.1));
+  border:3px solid rgba(255,255,255,.5);
+  box-shadow:0 0 0 8px rgba(255,255,255,.12),inset 0 1px 0 rgba(255,255,255,.4),var(--s3);
+  margin-bottom:14px;position:relative;z-index:2;
+  animation:float 4.5s ease-in-out infinite;
+}
+.khanda-char{
+  font-size:54px;line-height:1;
+  color:rgba(255,255,255,.95);
+  filter:drop-shadow(0 2px 8px rgba(0,0,0,.25));
+  user-select:none;
+}
+
+.hero-name{
+  font-family:'Baloo 2',sans-serif;
+  font-size:2.1rem;font-weight:800;
+  color:var(--white);letter-spacing:.3px;line-height:1.2;
+  text-shadow:0 2px 16px rgba(0,0,0,.25);
+  position:relative;z-index:2;
+  animation:fadeUp .5s .1s ease both;
+}
+.hero-en{
+  font-size:.76rem;font-weight:600;letter-spacing:2.5px;text-transform:uppercase;
+  color:rgba(255,255,255,.6);margin-top:3px;
+  position:relative;z-index:2;
+  animation:fadeUp .5s .15s ease both;
+}
+.hero-tagline{
+  display:inline-flex;align-items:center;gap:7px;
+  background:rgba(0,0,0,.15);
+  border:1px solid rgba(255,255,255,.25);
+  border-radius:40px;padding:7px 18px;
+  font-size:.88rem;font-weight:600;color:rgba(255,255,255,.92);
+  margin:12px 0 0;position:relative;z-index:2;
+  animation:fadeUp .5s .2s ease both;
+  backdrop-filter:blur(8px);
+}
+.open-pill{
+  display:inline-flex;align-items:center;gap:6px;
+  background:rgba(22,101,52,.6);
+  border:1px solid rgba(74,222,128,.3);
+  border-radius:30px;padding:5px 14px;
+  font-size:.77rem;font-weight:700;color:#86efac;
+  margin-top:9px;position:relative;z-index:2;
+  animation:fadeUp .5s .25s ease both;
+}
+.live-dot{
+  width:7px;height:7px;border-radius:50%;background:#4ade80;
+  animation:ringGreen 2s infinite;
+}
+.hero-spacer{height:42px;}
+
+/* ══════════════════════════════════════════
+   INFO STRIP
+══════════════════════════════════════════ */
+.info-strip{
+  display:grid;grid-template-columns:repeat(3,1fr);
+  border-bottom:1px solid var(--line);
+  background:var(--white);
+}
+.ic{
+  padding:13px 8px;text-align:center;
+  border-right:1px solid var(--line);
+  display:flex;flex-direction:column;align-items:center;gap:5px;
+  transition:background .2s;
+}
+.ic:last-child{border-right:none;}
+.ic:hover{background:var(--s50);}
+.ic-icn{
+  width:30px;height:30px;border-radius:8px;
+  background:linear-gradient(145deg,var(--s100),var(--s50));
+  border:1px solid var(--s200);
+  display:flex;align-items:center;justify-content:center;
+  transition:transform .2s;
+}
+.ic:hover .ic-icn{transform:scale(1.1);}
+.ic-icn svg{width:14px;height:14px;fill:var(--s700);}
+.ic-lbl{font-size:.64rem;font-weight:700;color:var(--ink4);text-transform:uppercase;letter-spacing:.5px;}
+.ic-val{font-size:.84rem;font-weight:700;color:var(--ink2);line-height:1.3;font-family:'Baloo 2',sans-serif;}
+.ic-val a{color:var(--g700);text-decoration:none;}
+.ic-val a:hover{text-decoration:underline;}
+
+/* ══════════════════════════════════════════
+   SECTION HEADING
+══════════════════════════════════════════ */
+.sh{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:24px 18px 14px;
+}
+.sh-l{display:flex;align-items:center;gap:10px;}
+.sh-ic{
+  width:36px;height:36px;border-radius:10px;
+  display:flex;align-items:center;justify-content:center;flex-shrink:0;
+  position:relative;overflow:hidden;
+}
+.sh-ic::after{content:'';position:absolute;inset:0;background:rgba(255,255,255,.15);}
+.sh-ic svg{width:17px;height:17px;fill:white;position:relative;z-index:1;}
+.sh-ic.amber{
+  background:linear-gradient(145deg,var(--s300),var(--s500));
+  box-shadow:0 3px 10px rgba(208,107,0,.25);
+}
+.sh-ic.green{
+  background:linear-gradient(145deg,var(--g500),var(--g700));
+  box-shadow:0 3px 10px rgba(21,128,61,.22);
+}
+.sh-title{
+  font-size:1.05rem;font-weight:800;color:var(--ink);
+  font-family:'Baloo 2',sans-serif;
+}
+.sh-sub{font-size:.72rem;color:var(--ink4);font-weight:500;margin-top:1px;}
+.sh-tag{
+  background:var(--s100);color:var(--s700);
+  border:1px solid var(--s200);
+  font-size:.71rem;font-weight:800;padding:3px 10px;border-radius:20px;
+}
+
+/* ══════════════════════════════════════════
+   PRODUCTS GRID
+══════════════════════════════════════════ */
+.pgrid{
+  display:grid;grid-template-columns:repeat(2,1fr);
+  gap:11px;padding:0 14px 8px;
+}
+.pc{
+  background:var(--white);
+  border:1.5px solid var(--line);
+  border-radius:var(--rad2);overflow:hidden;
+  box-shadow:var(--s1);
+  transition:transform .22s cubic-bezier(.34,1.56,.64,1),box-shadow .22s ease,border-color .22s;
+  will-change:transform;
+  opacity:0;animation:cardPop .45s ease forwards;
+  position:relative;cursor:default;
+}
+.pc:hover{transform:translateY(-5px) scale(1.02);box-shadow:var(--s3);border-color:var(--s300);}
+/* coloured top accent bar */
+.pc::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:3px;
+  border-radius:var(--rad2) var(--rad2) 0 0;
+}
+.pc.ac1::before{background:linear-gradient(90deg,#fbbf24,#f59e0b);}
+.pc.ac2::before{background:linear-gradient(90deg,#4ade80,#22c55e);}
+.pc.ac3::before{background:linear-gradient(90deg,#fde68a,#f59e0b);}
+.pc.ac4::before{background:linear-gradient(90deg,#f9a8d4,#ec4899);}
+.pc.ac5::before{background:linear-gradient(90deg,#fcd34d,#f59e0b);}
+.pc.ac6::before{background:linear-gradient(90deg,#c4b5fd,#8b5cf6);}
+.pc.ac7::before{background:linear-gradient(90deg,#6ee7b7,#10b981);}
+.pc.ac8::before{background:linear-gradient(90deg,#d6d3d1,#78716c);}
+
+.pi{
+  height:90px;display:flex;align-items:center;justify-content:center;
+  font-size:2.9rem;
+  transition:transform .25s;
+  margin-top:3px;
+}
+.pc:hover .pi{transform:scale(1.15) rotate(5deg);}
+
+.pb{padding:10px 12px 13px;}
+.pn{
+  font-size:.93rem;font-weight:800;color:var(--ink);
+  margin-bottom:5px;font-family:'Baloo 2',sans-serif;
+}
+.pp{
+  display:inline-flex;align-items:center;gap:4px;
+  font-size:.78rem;font-weight:700;
+  color:var(--s700);background:var(--s50);
+  border:1px solid var(--s200);
+  padding:2px 9px;border-radius:20px;margin-bottom:9px;
+}
+.pp svg{width:10px;height:10px;fill:var(--s500);}
+.btn-buy{
+  width:100%;
+  background:linear-gradient(135deg,var(--g700),var(--g900));
+  color:var(--white);border:none;
+  padding:9px 8px;border-radius:var(--rad);
+  font-family:inherit;font-size:.84rem;font-weight:700;
+  cursor:pointer;
+  display:flex;align-items:center;justify-content:center;gap:6px;
+  box-shadow:0 3px 0 rgba(0,0,0,.2),0 5px 12px rgba(21,83,52,.2);
+  transition:transform .1s,box-shadow .1s,filter .15s;
+  position:relative;overflow:hidden;
+}
+.btn-buy::after{
+  content:'';position:absolute;inset:0;
+  background:linear-gradient(90deg,transparent,rgba(255,255,255,.12),transparent);
+  background-size:400%;animation:shimmer 3s linear infinite;
+}
+.btn-buy svg{width:13px;height:13px;fill:#4ade80;flex-shrink:0;}
+.btn-buy:hover{filter:brightness(1.1);}
+.btn-buy:active{transform:translateY(2px);box-shadow:0 1px 0 rgba(0,0,0,.2);}
+
+/* ripple */
+.rpl{
+  position:absolute;border-radius:50%;
+  background:rgba(255,255,255,.4);
+  width:10px;height:10px;
+  transform:scale(1);
+  animation:ripple .55s ease-out forwards;
+  pointer-events:none;
+}
+
+/* ══════════════════════════════════════════
+   WA BANNER
+══════════════════════════════════════════ */
+.wa-banner{
+  margin:8px 14px 0;
+  background:linear-gradient(135deg,#f0fdf4,#dcfce7);
+  border:1.5px solid #86efac;
+  border-radius:var(--rad);
+  padding:11px 14px;
+  display:flex;align-items:center;gap:10px;
+  font-size:.83rem;font-weight:700;color:var(--g800);
+  animation:bounce 2.5s ease infinite;
+}
+.wa-banner svg{width:20px;height:20px;fill:#25d366;flex-shrink:0;}
+
+/* ══════════════════════════════════════════
+   FORM
+══════════════════════════════════════════ */
+.form-card{
+  margin:14px 14px 26px;
+  border:1.5px solid var(--s200);
+  border-radius:var(--rad2);overflow:hidden;
+  box-shadow:0 6px 24px rgba(208,107,0,.1),var(--s2);
+}
+.ft{
+  background:linear-gradient(135deg,var(--s400),var(--s600));
+  padding:15px 17px;
+  display:flex;align-items:center;gap:11px;
+}
+.ft-ic{
+  width:38px;height:38px;border-radius:10px;
+  background:rgba(255,255,255,.2);
+  border:1px solid rgba(255,255,255,.25);
+  display:flex;align-items:center;justify-content:center;flex-shrink:0;
+}
+.ft-ic svg{width:19px;height:19px;fill:white;}
+.ft h3{font-size:.97rem;font-weight:800;color:white;text-shadow:0 1px 3px rgba(0,0,0,.15);}
+.ft p{font-size:.73rem;color:rgba(255,255,255,.65);margin-top:1px;}
+.fb{padding:17px 15px 20px;background:var(--white);}
+.fg{margin-bottom:13px;}
+.fg:last-of-type{margin-bottom:0;}
+.fl{
+  display:flex;align-items:center;gap:5px;
+  font-size:.81rem;font-weight:700;color:var(--ink2);margin-bottom:5px;
+}
+.fl svg{width:12px;height:12px;fill:var(--s500);}
+.fi{
+  width:100%;padding:11px 14px;
+  font-size:.92rem;font-family:inherit;
+  border:1.5px solid var(--line);border-radius:var(--rad);
+  background:var(--surf);color:var(--ink);outline:none;
+  transition:border-color .2s,box-shadow .2s,background .2s,transform .15s;
+  -webkit-appearance:none;
+}
+.fi:focus{
+  border-color:var(--s400);background:var(--white);
+  box-shadow:0 0 0 3px rgba(245,158,11,.12);
+  transform:scale(1.005);
+}
+textarea.fi{border-radius:var(--rad);resize:vertical;min-height:66px;}
+select.fi{cursor:pointer;}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
+.btn-sub{
+  width:100%;margin-top:17px;
+  background:linear-gradient(135deg,var(--s300),var(--s500));
+  color:var(--g900);border:none;
+  padding:15px;border-radius:var(--rad2);
+  font-family:'Baloo 2',sans-serif;font-size:1.08rem;font-weight:900;
+  cursor:pointer;letter-spacing:.2px;
+  display:flex;align-items:center;justify-content:center;gap:9px;
+  box-shadow:0 5px 0 var(--s600),0 9px 22px rgba(208,107,0,.25);
+  transition:transform .1s,box-shadow .1s,filter .15s;
+  position:relative;overflow:hidden;
+  animation:glowPulse 3s ease infinite;
+}
+.btn-sub::after{
+  content:'';position:absolute;inset:0;
+  background:linear-gradient(90deg,transparent,rgba(255,255,255,.25),transparent);
+  background-size:400%;animation:shimmer 2s linear infinite;
+}
+.btn-sub svg{width:17px;height:17px;fill:var(--g900);flex-shrink:0;}
+.btn-sub:hover{filter:brightness(1.07);}
+.btn-sub:active{transform:translateY(4px);box-shadow:0 1px 0 var(--s600);}
+
+/* ══════════════════════════════════════════
+   FOOTER
+══════════════════════════════════════════ */
+.footer{
+  background:linear-gradient(160deg,var(--n700),var(--n900));
+  padding:28px 20px;text-align:center;
+  position:relative;overflow:hidden;
+}
+.footer::before{
+  content:'☬';position:absolute;
+  font-size:140px;opacity:.04;
+  top:50%;left:50%;transform:translate(-50%,-50%);
+  color:white;pointer-events:none;
+  animation:float 8s ease-in-out infinite;
+}
+.ft-top{display:inline-flex;align-items:center;gap:10px;margin-bottom:10px;}
+.ft-emblem{
+  width:40px;height:40px;border-radius:50%;
+  background:linear-gradient(145deg,var(--s300),var(--s500));
+  display:flex;align-items:center;justify-content:center;
+  box-shadow:0 3px 10px rgba(208,107,0,.35);
+  animation:glowPulse 4s ease infinite;
+}
+.ft-emblem span{font-size:22px;line-height:1;color:var(--g900);}
+.ft-nm{font-family:'Baloo 2',sans-serif;font-size:1.12rem;font-weight:800;color:white;}
+.ft-wg{font-family:'Baloo 2',sans-serif;font-size:.9rem;color:rgba(255,255,255,.4);margin-bottom:14px;}
+.ft-sep{height:1px;background:rgba(255,255,255,.08);margin:12px 0;}
+.ft-row{
+  display:flex;align-items:center;justify-content:center;flex-wrap:wrap;
+  gap:14px;font-size:.77rem;color:rgba(255,255,255,.38);font-weight:500;
+}
+.ft-item{display:flex;align-items:center;gap:5px;}
+.ft-item svg{width:11px;height:11px;fill:var(--s400);}
+
+/* ══════════════════════════════════════════
+   TOAST
+══════════════════════════════════════════ */
+.toast{
+  position:fixed;bottom:22px;left:50%;
+  transform:translateX(-50%) translateY(16px);
+  background:var(--g900);color:white;
+  padding:12px 20px;border-radius:40px;
+  font-size:.88rem;font-weight:700;
+  box-shadow:0 8px 28px rgba(0,0,0,.25);
+  z-index:9999;max-width:calc(100vw - 28px);
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
+  opacity:0;pointer-events:none;
+  transition:opacity .28s,transform .28s;
+  display:flex;align-items:center;gap:8px;
+}
+.toast.on{opacity:1;transform:translateX(-50%) translateY(0);pointer-events:auto;}
+.toast.err{background:var(--red);}
+.toast svg{width:15px;height:15px;fill:var(--s400);flex-shrink:0;}
+
+/* ══════════════════════════════════════════
+   ADMIN OVERLAY
+══════════════════════════════════════════ */
+#ao{
+  display:none;position:fixed;inset:0;
+  background:rgba(4,9,28,.72);z-index:8000;
+  backdrop-filter:blur(7px);
+  padding:14px;overflow-y:auto;
+  align-items:flex-start;justify-content:center;
+}
+#ao.on{display:flex;animation:fadeIn .22s ease;}
+.ap{
+  background:var(--white);width:100%;max-width:680px;
+  border-radius:var(--rad3);overflow:hidden;
+  box-shadow:var(--s4);animation:slideDown .3s ease both;margin:auto;
+}
+.ap-hd{
+  background:linear-gradient(135deg,var(--s400),var(--s600));
+  padding:16px 18px;
+  display:flex;align-items:center;justify-content:space-between;
+  position:sticky;top:0;z-index:5;
+}
+.ap-hd-l{display:flex;align-items:center;gap:10px;}
+.ap-hd-ic{
+  width:34px;height:34px;border-radius:8px;
+  background:rgba(255,255,255,.2);
+  display:flex;align-items:center;justify-content:center;
+}
+.ap-hd-ic svg{width:16px;height:16px;fill:var(--g900);}
+.ap-t{font-size:.98rem;font-weight:800;color:var(--g900);}
+.ap-s{font-size:.71rem;color:rgba(0,0,0,.4);margin-top:1px;}
+.ap-badge{
+  background:var(--g900);color:var(--s400);
+  font-size:.71rem;font-weight:800;
+  padding:2px 9px;border-radius:20px;
+  animation:badgeIn .35s ease;
+}
+.ap-cl{
+  width:32px;height:32px;border-radius:50%;
+  background:rgba(0,0,0,.12);border:1px solid rgba(0,0,0,.1);
+  color:var(--g900);
+  display:flex;align-items:center;justify-content:center;
+  cursor:pointer;transition:background .2s;
+}
+.ap-cl svg{width:13px;height:13px;fill:currentColor;}
+.ap-cl:hover{background:rgba(0,0,0,.22);}
+.ap-tabs{display:flex;background:var(--surf);border-bottom:1px solid var(--line);}
+.ap-tab{
+  flex:1;padding:11px 6px;
+  font-family:inherit;font-size:.83rem;font-weight:600;
+  background:none;border:none;color:var(--ink4);cursor:pointer;
+  border-bottom:2px solid transparent;margin-bottom:-1px;
+  transition:color .18s,border-color .18s;
+  display:flex;align-items:center;justify-content:center;gap:5px;
+}
+.ap-tab svg{width:12px;height:12px;fill:currentColor;}
+.ap-tab.on{color:var(--s600);border-bottom-color:var(--s500);}
+.ap-tc{
+  background:var(--line);color:var(--ink3);
+  font-size:.67rem;font-weight:700;padding:1px 6px;border-radius:10px;
+}
+.ap-tab.on .ap-tc{background:var(--s100);color:var(--s700);}
+.ap-body{padding:16px;}
+.ap-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:16px;}
+.stat{
+  background:var(--surf);border:1px solid var(--line);
+  border-radius:var(--rad);padding:10px 8px;text-align:center;
+  transition:transform .2s,box-shadow .2s;
+}
+.stat:hover{transform:translateY(-2px);box-shadow:var(--s2);}
+.stat-n{font-size:1.6rem;font-weight:900;line-height:1;}
+.stat-n.a{color:var(--s500);}
+.stat-n.g{color:var(--g600);}
+.stat-n.r{color:var(--red);}
+.stat-l{font-size:.67rem;font-weight:600;color:var(--ink4);margin-top:3px;text-transform:uppercase;letter-spacing:.4px;}
+.ap-bar{display:flex;gap:7px;margin-bottom:13px;flex-wrap:wrap;}
+.ap-srch{
+  flex:2;min-width:140px;
+  border:1.5px solid var(--line);border-radius:var(--rad);
+  padding:8px 11px;font-family:inherit;font-size:.85rem;
+  background:var(--white);color:var(--ink);outline:none;
+}
+.ap-srch:focus{border-color:var(--s400);}
+.ap-sel{
+  flex:1;min-width:110px;
+  border:1.5px solid var(--line);border-radius:var(--rad);
+  padding:8px 10px;font-family:inherit;font-size:.85rem;font-weight:600;
+  background:var(--white);color:var(--ink2);outline:none;cursor:pointer;
+}
+.ap-clr{
+  background:var(--red-lt);color:var(--red);border:none;
+  padding:8px 11px;border-radius:var(--rad);
+  font-family:inherit;font-size:.79rem;font-weight:700;cursor:pointer;
+  display:flex;align-items:center;gap:4px;white-space:nowrap;
+}
+.ap-clr svg{width:11px;height:11px;fill:currentColor;}
+.oc-list{display:flex;flex-direction:column;gap:9px;}
+.oc{
+  background:var(--white);border:1px solid var(--line);
+  border-radius:var(--rad2);overflow:hidden;
+  box-shadow:var(--s1);animation:fadeUp .28s ease both;
+}
+.oc.new{border-left:3px solid var(--s400);}
+.oc.done{opacity:.52;}
+.oc-top{padding:10px 12px 8px;display:flex;align-items:flex-start;gap:8px;border-bottom:1px solid var(--surf);}
+.oc-ic{width:32px;height:32px;border-radius:8px;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.oc-ic svg{width:15px;height:15px;}
+.oc-ic.req{background:var(--s50);}
+.oc-ic.req svg{fill:var(--s600);}
+.oc-ic.int{background:#dbeafe;}
+.oc-ic.int svg{fill:var(--blue);}
+.oc-meta{flex:1;min-width:0;}
+.oc-item{font-size:.94rem;font-weight:700;color:var(--ink);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.oc-t{font-size:.71rem;color:var(--ink4);margin-top:1px;display:flex;align-items:center;gap:3px;}
+.oc-t svg{width:10px;height:10px;fill:var(--ink4);}
+.oc-st{flex-shrink:0;font-size:.69rem;font-weight:700;padding:2px 8px;border-radius:10px;}
+.oc-st.new{background:var(--g100);color:var(--g700);}
+.oc-st.done{background:var(--line);color:var(--ink4);}
+.oc-mid{padding:8px 12px;}
+.oc-chips{display:flex;flex-wrap:wrap;gap:5px;margin-bottom:5px;}
+.chip{display:inline-flex;align-items:center;gap:4px;font-size:.75rem;font-weight:600;padding:2px 9px;border-radius:20px;}
+.chip.def{background:var(--surf);color:var(--ink3);}
+.chip.qty{background:#e0f2fe;color:#0369a1;}
+.chip.con{background:var(--s50);color:var(--s700);}
+.oc-note{
+  font-size:.79rem;color:var(--ink3);background:var(--surf);border-radius:8px;
+  padding:6px 9px;border-left:2px solid var(--line);
+  display:flex;align-items:flex-start;gap:5px;
+}
+.oc-note svg{width:10px;height:10px;fill:var(--ink4);flex-shrink:0;margin-top:2px;}
+.oc-act{padding:9px 12px;background:var(--surf);display:flex;gap:6px;flex-wrap:wrap;border-top:1px solid var(--line);}
+.ob{
+  display:inline-flex;align-items:center;gap:4px;
+  padding:5px 11px;border-radius:20px;border:none;
+  font-family:inherit;font-size:.76rem;font-weight:700;
+  cursor:pointer;transition:filter .15s,transform .1s;text-decoration:none;
+}
+.ob:active{transform:scale(.96);}
+.ob svg{width:10px;height:10px;fill:currentColor;}
+.ob.call{background:var(--blue-lt);color:var(--blue);}
+.ob.wa{background:var(--g100);color:var(--g700);}
+.ob.done{background:var(--g100);color:var(--g700);}
+.ob.del{background:var(--red-lt);color:var(--red);}
+.ap-empty{text-align:center;padding:44px 18px;color:var(--ink4);}
+.ap-empty svg{width:2.6rem;height:2.6rem;fill:currentColor;opacity:.3;display:block;margin:0 auto 10px;}
+.ap-empty p{font-size:.88rem;font-weight:600;}
+
+/* LOGIN */
+#lb{padding:36px 22px;text-align:center;}
+.lb-ic{
+  width:58px;height:58px;border-radius:var(--rad2);
+  background:linear-gradient(145deg,var(--s300),var(--s500));
+  display:flex;align-items:center;justify-content:center;
+  margin:0 auto 13px;box-shadow:0 6px 18px rgba(208,107,0,.25);
+}
+.lb-ic svg{width:26px;height:26px;fill:var(--g900);}
+#lb h3{font-size:1.05rem;font-weight:800;color:var(--ink);margin-bottom:4px;}
+#lb p{font-size:.83rem;color:var(--ink4);margin-bottom:18px;}
+#pi{
+  width:100%;padding:11px 16px;
+  border:1.5px solid var(--line);border-radius:var(--rad2);
+  font-size:1.05rem;font-family:inherit;
+  outline:none;text-align:center;letter-spacing:4px;
+  background:var(--surf);color:var(--ink);
+  transition:border-color .2s,box-shadow .2s;margin-bottom:10px;
+}
+#pi:focus{border-color:var(--s400);box-shadow:0 0 0 3px rgba(245,158,11,.1);}
+#pi.shake{animation:shake .38s ease;border-color:var(--red);}
+.lb-btn{
+  width:100%;
+  background:linear-gradient(135deg,var(--s400),var(--s600));
+  color:var(--g900);border:none;padding:12px;
+  border-radius:var(--rad2);font-family:inherit;font-size:.95rem;font-weight:800;
+  cursor:pointer;box-shadow:0 4px 12px rgba(208,107,0,.22);
+  transition:filter .15s;display:flex;align-items:center;justify-content:center;gap:7px;
+}
+.lb-btn:hover{filter:brightness(1.08);}
+.lb-btn svg{width:14px;height:14px;fill:var(--g900);}
+
+@media(max-width:400px){
+  .hero-name{font-size:1.75rem}
+  .info-strip{grid-template-columns:1fr}
+  .ic{border-right:none;border-bottom:1px solid var(--line)}
+  .ic:last-child{border-bottom:none}
+  .ap-stats{grid-template-columns:repeat(2,1fr)}
+  .two{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+<div class="page">
+
+<!-- ░░ HERO ░░ -->
+<div class="hero">
+  <!-- floating dots -->
+  <div class="hero-dots" aria-hidden="true">
+    <span style="width:10px;height:10px;top:18%;left:8%;animation-duration:4.2s;animation-delay:0s;"></span>
+    <span style="width:6px;height:6px;top:55%;left:14%;animation-duration:5.1s;animation-delay:.7s;"></span>
+    <span style="width:14px;height:14px;top:25%;right:10%;animation-duration:3.8s;animation-delay:.3s;"></span>
+    <span style="width:8px;height:8px;top:70%;right:16%;animation-duration:4.7s;animation-delay:1s;"></span>
+    <span style="width:5px;height:5px;top:40%;left:22%;animation-duration:6s;animation-delay:.5s;"></span>
+    <span style="width:12px;height:12px;top:15%;right:28%;animation-duration:5.5s;animation-delay:1.3s;"></span>
+  </div>
+
+  <div class="admin-dot" id="adt">
+    <svg viewBox="0 0 24 24"><path d="M19.14,12.94c0.04-0.3,0.06-0.61,0.06-0.94c0-0.32-0.02-0.64-0.07-0.94l2.03-1.58c0.18-0.14,0.23-0.41,0.12-0.61 l-1.92-3.32c-0.12-0.22-0.37-0.29-0.59-0.22l-2.39,0.96c-0.5-0.38-1.03-0.7-1.62-0.94L14.4,2.81c-0.04-0.24-0.24-0.41-0.48-0.41 h-3.84c-0.24,0-0.43,0.17-0.47,0.41L9.25,5.35C8.66,5.59,8.12,5.92,7.63,6.29L5.24,5.33c-0.22-0.08-0.47,0-0.59,0.22L2.74,8.87 C2.62,9.08,2.66,9.34,2.86,9.48l2.03,1.58C4.84,11.36,4.8,11.69,4.8,12s0.02,0.64,0.07,0.94l-2.03,1.58 c-0.18,0.14-0.23,0.41-0.12,0.61l1.92,3.32c0.12,0.22,0.37,0.29,0.59,0.22l2.39-0.96c0.5,0.38,1.03,0.7,1.62,0.94l0.36,2.54 c0.05,0.24,0.24,0.41,0.48,0.41h3.84c0.24,0,0.44-0.17,0.47-0.41l0.36-2.54c0.59-0.24,1.13-0.56,1.62-0.94l2.39,0.96 c0.22,0.08,0.47,0,0.59-0.22l1.92-3.32c0.12-0.22,0.07-0.47-0.12-0.61L19.14,12.94z M12,15.6c-1.98,0-3.6-1.62-3.6-3.6 s1.62-3.6,3.6-3.6s3.6,1.62,3.6,3.6S13.98,15.6,12,15.6z"/></svg>
+  </div>
+
+  <div class="khanda-ring">
+    <span class="khanda-char">☬</span>
+  </div>
+
+  <div class="hero-name">ਜਸਰਾਜ ਖੇਤੀਬਾੜੀ ਸਟੋਰ</div>
+  <div class="hero-en">Jasraj Agriculture Store • Pathlawa</div>
+  <div class="hero-tagline">
+    <svg viewBox="0 0 24 24" width="14" height="14" fill="rgba(255,255,255,.8)"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
+    ਸਤਿ ਸ੍ਰੀ ਅਕਾਲ — ਪਠਲਾਵਾ, ਬੰਗਾ
+  </div>
+  <div class="open-pill"><span class="live-dot"></span> ਹੁਣ ਖੁੱਲਾ — Open Now</div>
+  <div class="hero-spacer"></div>
+  <!-- wave -->
+  <div class="hero-wave" aria-hidden="true">
+    <svg viewBox="0 0 600 38" preserveAspectRatio="none"><path d="M0 38 C100 0 200 38 300 18 C400 0 500 38 600 18 L600 38Z"/></svg>
+    <svg viewBox="0 0 600 38" preserveAspectRatio="none"><path d="M0 38 C100 0 200 38 300 18 C400 0 500 38 600 18 L600 38Z"/></svg>
+  </div>
+</div>
+
+<!-- ░░ INFO STRIP ░░ -->
+<div class="info-strip">
+  <div class="ic reveal from-left">
+    <div class="ic-icn"><svg viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg></div>
+    <div class="ic-lbl">ਪਤਾ</div>
+    <div class="ic-val">ਪਠਲਾਵਾ, ਬੰਗਾ<br>PIN 144510</div>
+  </div>
+  <div class="ic reveal" style="transition-delay:.1s">
+    <div class="ic-icn"><svg viewBox="0 0 24 24"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg></div>
+    <div class="ic-lbl">ਫ਼ੋਨ</div>
+    <div class="ic-val"><a href="tel:+919872560467">98725-60467</a></div>
+  </div>
+  <div class="ic reveal from-right" style="transition-delay:.18s">
+    <div class="ic-icn"><svg viewBox="0 0 24 24"><path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zm.01 18c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67V7z"/></svg></div>
+    <div class="ic-lbl">ਸਮਾਂ</div>
+    <div class="ic-val">7 AM – 7 PM<br>ਹਰ ਰੋਜ਼</div>
+  </div>
+</div>
+
+<!-- ░░ PRODUCTS ░░ -->
+<div class="sh reveal">
+  <div class="sh-l">
+    <div class="sh-ic amber">
+      <svg viewBox="0 0 24 24"><path d="M11.8 10.9c-2.27-.59-3-1.2-3-2.15 0-1.09 1.01-1.85 2.7-1.85 1.78 0 2.44.85 2.5 2.1h2.21c-.07-1.72-1.12-3.3-3.21-3.81V3h-3v2.16c-1.94.42-3.5 1.68-3.5 3.61 0 2.31 1.91 3.46 4.7 4.13 2.5.6 3 1.48 3 2.41 0 .69-.49 1.79-2.7 1.79-2.06 0-2.87-.92-2.98-2.1h-2.2c.12 2.19 1.76 3.42 3.68 3.83V21h3v-2.15c1.95-.37 3.5-1.5 3.5-3.55 0-2.84-2.43-3.81-4.7-4.4z"/></svg>
+    </div>
+    <div>
+      <div class="sh-title">ਸਾਡੇ ਉਤਪਾਦ</div>
+      <div class="sh-sub">Our Products &amp; Live Prices</div>
+    </div>
+  </div>
+  <span class="sh-tag">8 Items</span>
+</div>
+<div class="pgrid" id="pg"></div>
+
+<div class="wa-banner reveal" style="transition-delay:.1s">
+  <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413z"/></svg>
+  ਫ਼ਾਰਮ ਭਰਦੇ ਹੀ WhatsApp ਅਲਰਟ ਜਾਵੇਗਾ — ਜਸਰਾਜ ਨੂੰ ਤੁਰੰਤ ਸੂਚਨਾ ਮਿਲੇਗੀ
+</div>
+
+<!-- ░░ FORM ░░ -->
+<div class="sh reveal" style="margin-top:6px;">
+  <div class="sh-l">
+    <div class="sh-ic green">
+      <svg viewBox="0 0 24 24"><path d="M14 2H6c-1.1 0-1.99.9-1.99 2L4 20c0 1.1.89 2 1.99 2H18c1.1 0 2-.9 2-2V8l-6-6zm2 16H8v-2h8v2zm0-4H8v-2h8v2zm-3-5V3.5L18.5 9H13z"/></svg>
+    </div>
+    <div>
+      <div class="sh-title">ਖਰੀਦ ਬੇਨਤੀ ਭੇਜੋ</div>
+      <div class="sh-sub">Send Purchase Request via WhatsApp</div>
+    </div>
+  </div>
+</div>
+<div class="form-card reveal">
+  <div class="ft">
+    <div class="ft-ic">
+      <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413z"/></svg>
+    </div>
+    <div>
+      <h3>ਆਪਣੀ ਮੰਗ ਦੱਸੋ</h3>
+      <p>WhatsApp ਤੇ ਸਿੱਧਾ ਜਾਵੇਗਾ — Goes directly to Jasraj's WhatsApp</p>
+    </div>
+  </div>
+  <div class="fb">
+    <form id="pf" autocomplete="off">
+      <div class="fg">
+        <label class="fl">
+          <svg viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-5 14H7v-2h7v2zm3-4H7v-2h10v2zm0-4H7V7h10v2z"/></svg>
+          ਕੀ ਚਾਹੀਦਾ ਹੈ?
+        </label>
+        <select class="fi" id="is" required>
+          <option value="">— ਚੁਣੋ / Select —</option>
+          <option>ਕਣਕ (ਗੰਦਮ)</option>
+          <option>ਝੋਨਾ (ਧਾਨ)</option>
+          <option>ਮੱਕੀ</option>
+          <option>ਸਰ੍ਹੋਂ</option>
+          <option>ਖਾਦ / ਰਸਾਇਣ</option>
+          <option>ਟਰੈਕਟਰ ਪੁਰਜ਼ੇ</option>
+          <option>ਹੋਰ...</option>
+        </select>
+      </div>
+      <div class="two">
+        <div class="fg">
+          <label class="fl">
+            <svg viewBox="0 0 24 24"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
+            ਨਾਮ
+          </label>
+          <input type="text" class="fi" id="fn" placeholder="ਪੂਰਾ ਨਾਮ" required>
+        </div>
+        <div class="fg">
+          <label class="fl">
+            <svg viewBox="0 0 24 24"><path d="M17 1.01L7 1c-1.1 0-2 .9-2 2v18c0 1.1.9 2 2 2h10c1.1 0 2-.9 2-2V3c0-1.1-.9-1.99-2-1.99zM17 19H7V5h10v14z"/></svg>
+            ਮੋਬਾਈਲ
+          </label>
+          <input type="tel" class="fi" id="ci" placeholder="98765-XXXXX" required>
+        </div>
+      </div>
+      <div class="fg">
+        <label class="fl">
+          <svg viewBox="0 0 24 24"><path d="M20.57 14.86L22 13.43 20.57 12 17 15.57 8.43 7 12 3.43 10.57 2 9.14 3.43 7.71 2 5.57 4.14 4.14 2.71 2.71 4.14l1.43 1.43L2 7.71l1.43 1.43L2 10.57 3.43 12 7 8.43 15.57 17 12 20.57 13.43 22l1.43-1.43L16.29 22l2.14-2.14 1.43 1.43 1.43-1.43-1.43-1.43L22 16.29l-1.43-1.43z"/></svg>
+          ਮਾਤਰਾ
+        </label>
+        <input type="text" class="fi" id="qt" placeholder="50 ਕਿੱਲੋ / 2 ਬੋਰੀ" required>
+      </div>
+      <div class="fg">
+        <label class="fl">
+          <svg viewBox="0 0 24 24"><path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2z"/></svg>
+          ਨੋਟ <span style="font-weight:400;color:var(--ink4);font-size:.78rem;">(ਜ਼ਰੂਰੀ ਨਹੀਂ)</span>
+        </label>
+        <textarea class="fi" id="no" rows="2" placeholder="ਕੋਈ ਖਾਸ ਗੱਲ..."></textarea>
+      </div>
+      <button type="submit" class="btn-sub">
+        <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413z"/></svg>
+        WhatsApp ਤੇ ਭੇਜੋ — Send via WhatsApp
+      </button>
+    </form>
+  </div>
+</div>
+
+<!-- ░░ FOOTER ░░ -->
+<div class="footer">
+  <div class="ft-top">
+    <div class="ft-emblem"><span>☬</span></div>
+    <div class="ft-nm">Jasraj Agri Store</div>
+  </div>
+  <div class="ft-wg">☬ ਵਾਹਿਗੁਰੂ ਜੀ ਕਾ ਖਾਲਸਾ, ਵਾਹਿਗੁਰੂ ਜੀ ਕੀ ਫਤਿਹ ☬</div>
+  <div class="ft-sep"></div>
+  <div class="ft-row">
+    <span class="ft-item"><svg viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg> ਪਠਲਾਵਾ, ਬੰਗਾ — 144510</span>
+    <span class="ft-item"><svg viewBox="0 0 24 24"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg> 98725-60467</span>
+  </div>
+</div>
+
+</div><!-- /page -->
+
+<div class="toast" id="toast">
+  <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 14.5v-9l6 4.5-6 4.5z"/></svg>
+  <span id="tmsg"></span>
+</div>
+
+<!-- ░░ ADMIN ░░ -->
+<div id="ao">
+  <div class="ap">
+    <div id="lb">
+      <div class="lb-ic"><svg viewBox="0 0 24 24"><path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm3.1-9H8.9V6c0-1.71 1.39-3.1 3.1-3.1 1.71 0 3.1 1.39 3.1 3.1v2z"/></svg></div>
+      <h3>Admin Access</h3>
+      <p>ਐਡਮਿਨ ਪੈਨਲ — Enter your password</p>
+      <input type="password" id="pi" placeholder="••••••••" maxlength="24">
+      <button class="lb-btn" id="lbtn">
+        <svg viewBox="0 0 24 24"><path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm3.1-9H8.9V6c0-1.71 1.39-3.1 3.1-3.1 1.71 0 3.1 1.39 3.1 3.1v2z"/></svg>
+        Enter Admin Panel
+      </button>
+    </div>
+    <div id="ac" style="display:none;">
+      <div class="ap-hd">
+        <div class="ap-hd-l">
+          <div class="ap-hd-ic"><svg viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zM9 17H7v-7h2v7zm4 0h-2V7h2v10zm4 0h-2v-4h2v4z"/></svg></div>
+          <div><div class="ap-t">Admin Dashboard</div><div class="ap-s">ਜਸਰਾਜ ਖੇਤੀਬਾੜੀ ਸਟੋਰ</div></div>
+          <span class="ap-badge" id="tb">0</span>
+        </div>
+        <button class="ap-cl" id="apc"><svg viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg></button>
+      </div>
+      <div class="ap-tabs">
+        <button class="ap-tab on" id="taAll" onclick="sw('all')"><svg viewBox="0 0 24 24"><path d="M3 13h2v-2H3v2zm0 4h2v-2H3v2zm0-8h2V7H3v2zm4 4h14v-2H7v2zm0 4h14v-2H7v2zM7 7v2h14V7H7z"/></svg>All <span class="ap-tc" id="tcA">0</span></button>
+        <button class="ap-tab" id="taReq" onclick="sw('request')"><svg viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-5 14H7v-2h7v2zm3-4H7v-2h10v2zm0-4H7V7h10v2z"/></svg>ਮੰਗਾਂ <span class="ap-tc" id="tcR">0</span></button>
+        <button class="ap-tab" id="taInt" onclick="sw('interest')"><svg viewBox="0 0 24 24"><path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/></svg>ਰੁਚੀ <span class="ap-tc" id="tcI">0</span></button>
+      </div>
+      <div class="ap-body">
+        <div class="ap-stats">
+          <div class="stat"><div class="stat-n" id="sT">0</div><div class="stat-l">ਕੁੱਲ</div></div>
+          <div class="stat"><div class="stat-n g" id="sN">0</div><div class="stat-l">ਨਵੇਂ</div></div>
+          <div class="stat"><div class="stat-n a" id="sD">0</div><div class="stat-l">ਪੂਰੇ</div></div>
+          <div class="stat"><div class="stat-n r" id="sTd">0</div><div class="stat-l">ਅੱਜ</div></div>
+        </div>
+        <div class="ap-bar">
+          <input class="ap-srch" id="srch" placeholder="ਖੋਜੋ — name, item..." oninput="ro()">
+          <select class="ap-sel" id="sf" onchange="ro()"><option value="all">All Status</option><option value="new">New Only</option><option value="done">Done Only</option></select>
+          <button class="ap-clr" onclick="ca()"><svg viewBox="0 0 24 24"><path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z"/></svg>Clear All</button>
+        </div>
+        <div class="oc-list" id="ol"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+(function(){
+'use strict';
+const WA='919872560467', PASS='jasraj123', KEY='jasraj_v5';
+const TODAY=new Date().toDateString();
+
+function load(){try{return JSON.parse(localStorage.getItem(KEY))||[];}catch{return[];}}
+function save(d){localStorage.setItem(KEY,JSON.stringify(d));}
+function add(e){
+  const a=load();
+  e.id=Date.now().toString(36)+Math.random().toString(36).slice(2,4);
+  e.ts=Date.now();e.time=new Date().toLocaleString('en-IN',{hour12:true,day:'2-digit',month:'short',hour:'2-digit',minute:'2-digit'});
+  e.date=TODAY;e.status='new';a.unshift(e);save(a);return e;
+}
+
+/* ─── PRODUCTS ─── */
+const prods=[
+  {e:'🌾',n:'ਕਣਕ (ਬੀਜ)',p:'₹2,200 / ਕੁਇੰਟਲ',a:'ac1'},
+  {e:'🌱',n:'ਝੋਨੇ ਦੀ ਪਨੀਰੀ',p:'₹180 / ਟਰੇ',a:'ac2'},
+  {e:'🌽',n:'ਮੱਕੀ ਦਾ ਦਾਣਾ',p:'₹2,100 / ਕੁਇੰਟਲ',a:'ac3'},
+  {e:'🧅',n:'ਪਿਆਜ਼ (ਤਾਜ਼ਾ)',p:'₹25 / ਕਿੱਲੋ',a:'ac4'},
+  {e:'🥔',n:'ਆਲੂ',p:'₹20 / ਕਿੱਲੋ',a:'ac5'},
+  {e:'🧄',n:'ਲਸਣ',p:'₹180 / ਕਿੱਲੋ',a:'ac6'},
+  {e:'🌿',n:'ਹਰਾ ਚਾਰਾ',p:'₹350 / ਕੁਇੰਟਲ',a:'ac7'},
+  {e:'🪨',n:'ਜੈਵਿਕ ਖਾਦ',p:'₹450 / ਬੋਰੀ',a:'ac8'},
+];
+const pg=document.getElementById('pg');
+prods.forEach((p,i)=>{
+  const d=document.createElement('div');
+  d.className=`pc ${p.a}`;
+  d.style.animationDelay=(i*.07+.35)+'s';
+  d.innerHTML=`
+    <div class="pi">${p.e}</div>
+    <div class="pb">
+      <div class="pn">${p.n}</div>
+      <div class="pp"><svg viewBox="0 0 24 24"><path d="M11.8 10.9c-2.27-.59-3-1.2-3-2.15 0-1.09 1.01-1.85 2.7-1.85 1.78 0 2.44.85 2.5 2.1h2.21c-.07-1.72-1.12-3.3-3.21-3.81V3h-3v2.16c-1.94.42-3.5 1.68-3.5 3.61 0 2.31 1.91 3.46 4.7 4.13 2.5.6 3 1.48 3 2.41 0 .69-.49 1.79-2.7 1.79-2.06 0-2.87-.92-2.98-2.1h-2.2c.12 2.19 1.76 3.42 3.68 3.83V21h3v-2.15c1.95-.37 3.5-1.5 3.5-3.55 0-2.84-2.43-3.81-4.7-4.4z"/></svg>${p.p}</div>
+      <button class="btn-buy" data-n="${p.n}">
+        <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413z"/></svg>
+        WhatsApp ਤੇ ਪੁੱਛੋ
+      </button>
+    </div>`;
+  pg.appendChild(d);
+});
+
+/* ripple effect on all buttons */
+document.addEventListener('click',function(e){
+  const b=e.target.closest('.btn-buy,.btn-sub,.lb-btn,.ob');
+  if(!b)return;
+  const r=document.createElement('span');
+  r.className='rpl';
+  const rc=b.getBoundingClientRect();
+  r.style.cssText=`left:${e.clientX-rc.left-5}px;top:${e.clientY-rc.top-5}px;`;
+  b.appendChild(r);setTimeout(()=>r.remove(),600);
+});
+
+document.querySelectorAll('.btn-buy').forEach(b=>{
+  b.addEventListener('click',function(){
+    const n=this.dataset.n;
+    const m=`🌾 *ਜਸਰਾਜ ਖੇਤੀਬਾੜੀ ਸਟੋਰ*\n\nਸਤਿ ਸ੍ਰੀ ਅਕਾਲ ਜੀ! ☬\nਮੈਨੂੰ *${n}* ਬਾਰੇ ਜਾਣਕਾਰੀ ਚਾਹੀਦੀ ਹੈ।\nਕਿਰਪਾ ਕੀਮਤ ਅਤੇ ਉਪਲਬਧਤਾ ਦੱਸੋ ਜੀ 🙏`;
+    add({type:'interest',item:n});
+    openWA(m);
+    toast('WhatsApp ਖੁੱਲ੍ਹ ਰਿਹਾ ਹੈ…');
+  });
+});
+
+/* Form */
+document.getElementById('pf').addEventListener('submit',function(e){
+  e.preventDefault();
+  const item=document.getElementById('is').value.trim();
+  const name=document.getElementById('fn').value.trim();
+  const phone=document.getElementById('ci').value.trim();
+  const qty=document.getElementById('qt').value.trim();
+  const notes=document.getElementById('no').value.trim();
+  if(!item||!name||!phone||!qty){toast('ਕਿਰਪਾ ਸਾਰੇ ਖਾਨੇ ਭਰੋ','err');return;}
+  const msg=[
+    `🌾 *ਜਸਰਾਜ ਖੇਤੀਬਾੜੀ ਸਟੋਰ — ਨਵੀਂ ਬੇਨਤੀ* ☬`,``,
+    `📦 *ਚੀਜ਼:* ${item}`,
+    `⚖️ *ਮਾਤਰਾ:* ${qty}`,
+    `👤 *ਨਾਮ:* ${name}`,
+    `📞 *ਨੰਬਰ:* ${phone}`,
+    notes?`📝 *ਨੋਟ:* ${notes}`:'',``,
+    `⏰ ${new Date().toLocaleString('en-IN',{hour12:true,day:'2-digit',month:'short',hour:'2-digit',minute:'2-digit'})}`,
+    `🙏 ਸਤਿ ਸ੍ਰੀ ਅਕਾਲ`
+  ].filter(Boolean).join('\n');
+  add({type:'request',item,name,phone,qty,notes});
+  openWA(msg);
+  toast(`ਧੰਨਵਾਦ ${name} ਜੀ! WhatsApp ਖੁੱਲ੍ਹ ਰਿਹਾ ਹੈ।`);
+  this.reset();
+});
+function openWA(m){window.open(`https://wa.me/${WA}?text=${encodeURIComponent(m)}`,'_blank','noopener');}
+
+/* Toast */
+let tt;
+function toast(msg,type='ok'){
+  const t=document.getElementById('toast');
+  document.getElementById('tmsg').textContent=msg;
+  t.className='toast on'+(type==='err'?' err':'');
+  clearTimeout(tt);tt=setTimeout(()=>t.classList.remove('on'),4500);
+}
+
+/* Admin */
+let unlocked=false,clicks=0,ct;
+document.getElementById('adt').addEventListener('click',()=>{
+  clicks++;clearTimeout(ct);ct=setTimeout(()=>clicks=0,1400);
+  if(clicks>=3){clicks=0;openAdmin();}
+});
+function openAdmin(){
+  document.getElementById('ao').classList.add('on');
+  if(unlocked)showAC();
+  else{document.getElementById('lb').style.display='block';document.getElementById('ac').style.display='none';setTimeout(()=>document.getElementById('pi').focus(),280);}
+}
+document.getElementById('lbtn').addEventListener('click',tryLogin);
+document.getElementById('pi').addEventListener('keydown',e=>{if(e.key==='Enter')tryLogin();});
+function tryLogin(){
+  if(document.getElementById('pi').value===PASS){unlocked=true;document.getElementById('pi').value='';showAC();}
+  else{const el=document.getElementById('pi');el.classList.remove('shake');void el.offsetWidth;el.classList.add('shake');el.value='';}
+}
+function showAC(){document.getElementById('lb').style.display='none';document.getElementById('ac').style.display='block';ro();}
+document.getElementById('apc').addEventListener('click',closeAdmin);
+document.getElementById('ao').addEventListener('click',function(e){if(e.target===this)closeAdmin();});
+function closeAdmin(){document.getElementById('ao').classList.remove('on');unlocked=false;}
+
+let curTab='all';
+window.sw=function(t){
+  curTab=t;
+  ['all','request','interest'].forEach(x=>{
+    document.getElementById('ta'+(x==='all'?'All':x==='request'?'Req':'Int'))?.classList.toggle('on',x===t);
+  });
+  ro();
+};
+window.ro=function(){
+  const all=load(),sf=(document.getElementById('sf')?.value||'all'),sq=(document.getElementById('srch')?.value||'').toLowerCase().trim();
+  let rows=[...all];
+  if(curTab!=='all')rows=rows.filter(o=>o.type===curTab);
+  if(sf==='new')rows=rows.filter(o=>o.status==='new');
+  if(sf==='done')rows=rows.filter(o=>o.status==='done');
+  if(sq)rows=rows.filter(o=>[(o.item||''),(o.name||''),(o.phone||''),(o.notes||'')].join(' ').toLowerCase().includes(sq));
+  document.getElementById('sT').textContent=all.length;
+  document.getElementById('sN').textContent=all.filter(o=>o.status==='new').length;
+  document.getElementById('sD').textContent=all.filter(o=>o.status==='done').length;
+  document.getElementById('sTd').textContent=all.filter(o=>o.date===TODAY).length;
+  document.getElementById('tb').textContent=all.length;
+  document.getElementById('tcA').textContent=all.length;
+  document.getElementById('tcR').textContent=all.filter(o=>o.type==='request').length;
+  document.getElementById('tcI').textContent=all.filter(o=>o.type==='interest').length;
+  const list=document.getElementById('ol');
+  if(!rows.length){list.innerHTML=`<div class="ap-empty"><svg viewBox="0 0 24 24"><path d="M12 22C6.48 22 2 17.52 2 12S6.48 2 12 2s10 4.48 10 10-4.48 10-10 10zm1-11h-2v6h2v-6zm0-4h-2v2h2V7z"/></svg><p>ਕੋਈ ਰਿਕਾਰਡ ਨਹੀਂ — No records</p></div>`;return;}
+  list.innerHTML='';
+  rows.forEach((o,i)=>{
+    const c=document.createElement('div');
+    c.className='oc '+(o.status==='new'?'new':'done');
+    c.style.animationDelay=(i*.04)+'s';
+    const isR=o.type==='request';
+    const waM=isR?`ਸਤਿ ਸ੍ਰੀ ਅਕਾਲ, ${o.name||''}! ਤੁਹਾਡੀ ${o.item} ਦੀ ਬੇਨਤੀ ਮਿਲੀ।`:
+      `ਸਤਿ ਸ੍ਰੀ ਅਕਾਲ! ${o.item} ਬਾਰੇ ਕੀਮਤ ਦੱਸਦੇ ਹਾਂ।`;
+    c.innerHTML=`
+      <div class="oc-top">
+        <div class="oc-ic ${isR?'req':'int'}"><svg viewBox="0 0 24 24"><path d="${isR?'M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-5 14H7v-2h7v2zm3-4H7v-2h10v2zm0-4H7V7h10v2z':'M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z'}"/></svg></div>
+        <div class="oc-meta"><div class="oc-item">${o.item}</div><div class="oc-t"><svg viewBox="0 0 24 24"><path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zm.01 18c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67V7z"/></svg>${o.time}</div></div>
+        <span class="oc-st ${o.status}">${o.status==='new'?'New':'Done'}</span>
+      </div>
+      <div class="oc-mid">
+        <div class="oc-chips">
+          <span class="chip def">${isR?'📦 ਖਰੀਦ':'👁 ਰੁਚੀ'}</span>
+          ${o.qty?`<span class="chip qty">${o.qty}</span>`:''}
+          ${o.name?`<span class="chip con">${o.name}</span>`:''}
+          ${o.phone?`<span class="chip con">📞 ${o.phone}</span>`:''}
+        </div>
+        ${o.notes?`<div class="oc-note"><svg viewBox="0 0 24 24"><path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2z"/></svg>${o.notes}</div>`:''}
+      </div>
+      <div class="oc-act">
+        ${o.phone?`<a href="tel:${o.phone}" class="ob call"><svg viewBox="0 0 24 24"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg>Call</a>`:''}
+        <a href="https://wa.me/${WA}?text=${encodeURIComponent(waM)}" target="_blank" class="ob wa"><svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413z"/></svg>WhatsApp</a>
+        <button class="ob done" onclick="tog('${o.id}')"><svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>${o.status==='new'?'Done':'Reopen'}</button>
+        <button class="ob del" onclick="del('${o.id}')"><svg viewBox="0 0 24 24"><path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z"/></svg>Del</button>
+      </div>`;
+    list.appendChild(c);
+  });
+};
+window.tog=function(id){const d=load();const o=d.find(x=>x.id===id);if(o)o.status=o.status==='new'?'done':'new';save(d);ro();};
+window.del=function(id){save(load().filter(x=>x.id!==id));ro();};
+window.ca=function(){if(confirm('Delete ALL records permanently?')){save([]);ro();}};
+
+/* ─── SCROLL REVEAL ─── */
+const io=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting){e.target.classList.add('visible');io.unobserve(e.target);}
+  });
+},{threshold:.12,rootMargin:'0px 0px -20px 0px'});
+document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+
+})();
+</script>
+</body>
+</html>
